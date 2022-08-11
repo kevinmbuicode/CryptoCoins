@@ -1,0 +1,7 @@
+.Header-Typography{
+    flex: 1;
+    color: gold;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
