@@ -1,4 +1,17 @@
 .Banner{
     background-image: url('./bg_image_comp.jpg');
-    height: 200px;
+}
+.Banner-Content{
+    display: flex;
+    height: 300px;
+    flex-direction: column;
+    padding-top: 25px;
+    justify-content: space-around;
+}
+.Banner-Title{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    height: 40%;
 }
