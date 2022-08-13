@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
 import './Banner.css';
+import Carousel from './Carousel';
 //import bgImage from './bg_image_comp.jpg'
 
 
@@ -32,6 +33,7 @@ const Banner = () => {
                     Get all info regarding your favourite crypto
                 </Typography>
             </div>
+            <Carousel/>
         </Container>
     </div>
   )

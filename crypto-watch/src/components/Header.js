@@ -38,7 +38,11 @@ const Header = () => {
             onChange={(e) => setCurrency(e.target.value)}
           >
             <MenuItem value={"USD"}>USD</MenuItem>
-            <MenuItem value={"KSH"}>KSH</MenuItem>
+            <MenuItem value={"EUR"}>EURO</MenuItem>
+            <MenuItem value={"AUD"}>AUD</MenuItem>
+            <MenuItem value={"CAD"}>CAD</MenuItem>
+            <MenuItem value={"GBP"}>GBP</MenuItem>
+            <MenuItem value={"BTC"}>BTC</MenuItem>
           </Select>
         </Toolbar>
       </Container>
