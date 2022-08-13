@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import { TrendingCoins } from "../../config/api";
 import { CryptoState } from "../../CryptoContext";
 import "./Carousel.css";
-import trendingUpIcon from './trendingUpIcon.png';
-import trendingDownIcon from './trendingDownIcon.png';
+
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);
@@ -46,12 +45,16 @@ const Carousel = () => {
         />
         <span>
             {coin?.symbol}
-            &nbsp; {/** &nbsp //non-breaking space//Not start a new line in html */}
-            <span>
+            &nbsp; {/** &nbsp //non-breaking space between symbol and price//Not start a new line in html */}
+            <span style={{
+                // display different green or red color depending on change in price_change_percentage_24h
+                color: change > 0 ? "rgb(14, 203, 129)" : "red",
+                fontWeight: "500",
+            }}>
                 {coin?.price_change_percentage_24h.toFixed(2/**decimal points*/)}% {change >= 0 ? '▲' : '▼'}
             </span>
         </span>
-        <span>
+        <span style={{fontSize: 22, fontWeight: 500}}>
             {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}
         </span>
       </Link>
