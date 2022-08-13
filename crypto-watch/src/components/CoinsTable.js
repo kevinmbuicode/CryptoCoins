@@ -1,4 +1,15 @@
-import { Typography, createTheme, TextField, LinearProgress, TableContainer, Table, TableHead, TableRow } from "@mui/material";
+import {
+  Typography,
+  createTheme,
+  TextField,
+  LinearProgress,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 import { Container, ThemeProvider } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -30,6 +41,15 @@ const CoinsTable = () => {
     },
   });
 
+  //Filter coins by search term
+  const handleSearch = () => {
+    return (coins.filter((coin) => {
+      coin.name.toLowerCase().includes(search) ||
+        coin.symbol.toLowerCase().includes(search);
+    }));
+  };
+
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Container style={{ textAlign: "center" }}>
@@ -44,15 +64,32 @@ const CoinsTable = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <TableContainer>
-            {loading ? (
-                <LinearProgress style={{ backgroundColor: "gold"}}/>
-            ) : (
-                <Table>
-                    <TableHead style={{ backgroundColor: "#EEBCID"}}>
-                        <TableRow></TableRow>
-                    </TableHead>
-                </Table>
-            )}
+          {loading ? (
+            <LinearProgress style={{ backgroundColor: "gold" }} />
+          ) : (
+            <Table>
+              <TableHead style={{ backgroundColor: "#EEBC1D" }}>
+                <TableRow>
+                  {["Coin", "Price", " 24h Change", "Market Cap"].map(
+                    (head) => (
+                      <TableCell
+                        style={{
+                          color: "black",
+                          fontWeight: "700",
+                          fontFamily: "Inter",
+                        }}
+                        key={head}
+                        align={head === "Coin" ? "" : "right"}
+                      >
+                        {head}
+                      </TableCell>
+                    )
+                  )}
+                </TableRow>
+              </TableHead>
+              <TableBody>{handleSearch()}</TableBody>
+            </Table>
+          )}
         </TableContainer>
       </Container>
     </ThemeProvider>
