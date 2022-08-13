@@ -82,7 +82,7 @@ const Carousel = () => {
         disableDotsControls={true}
         disableButtonsControls={true}
         //direction
-        autoPlayDirection="rtl"
+        autoPlayDirection="ltr"
         autoPlay={true}
         //call the responsive object above
         responsive={responsive}
