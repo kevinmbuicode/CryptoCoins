@@ -10,7 +10,8 @@ import trendingDownIcon from './trendingDownIcon.png';
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);
-  const { currency } = CryptoState();
+  // get states from context api
+  const { currency, symbol} = CryptoState();
 
   //Fetch trending coins from API and set trending state to data fetched
   useEffect(() => {
@@ -26,6 +27,12 @@ const Carousel = () => {
   const items = trending.map((coin) => {
     //percentage change in coin in 24 hours
     let change = coin.price_change_percentage_24h;
+
+    //Function to display umbers with commas (REGex): Source: Google/StackOverflow
+    // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     return (
       <Link className="Carousel-Item" to={`/coins/${coin.id}`} key={coin.id}>
@@ -45,7 +52,7 @@ const Carousel = () => {
             </span>
         </span>
         <span>
-            
+            {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}
         </span>
       </Link>
     );
