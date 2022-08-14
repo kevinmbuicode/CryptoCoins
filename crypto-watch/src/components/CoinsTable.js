@@ -111,7 +111,7 @@ const CoinsTable = () => {
                     return (
                       <TableRow
                         className="TableBody-TableRow"
-                        key={row.name}
+                        key={row.id}
                         onClick={() => navigate(`/coins/${row.id}`)}
                       >
                         {/* Our Image, Symbol, and name */}
