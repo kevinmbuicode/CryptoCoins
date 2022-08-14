@@ -9,6 +9,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Pagination,
 } from "@mui/material";
 import { Container, ThemeProvider } from "@mui/system";
 import axios from "axios";
@@ -22,6 +23,7 @@ const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1); //pagination
 
   //Navigation
   const navigate = useNavigate();
@@ -101,80 +103,97 @@ const CoinsTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {handleSearch().map((row) => {
-                  const profit = row.price_change_percentage_24h > 0;
+                {handleSearch()
+                  .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                  .map((row) => {
+                    const profit = row.price_change_percentage_24h > 0;
 
-                  return (
-                    <TableRow
-                      className="TableBody-TableRow"
-                      key={row.name}
-                      onClick={() => navigate(`/coins/${row.id}`)}
-                    >
-                      {/* Our Image, Symbol, and name */}
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{
-                          display: "flex",
-                          gap: 15,
-                        }}
+                    return (
+                      <TableRow
+                        className="TableBody-TableRow"
+                        key={row.name}
+                        onClick={() => navigate(`/coins/${row.id}`)}
                       >
-                        <img
-                          src={row?.image}
-                          alt={row.name}
-                          height="50"
-                          style={{ marginBottom: 10 }}
-                        />
-
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
+                        {/* Our Image, Symbol, and name */}
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{
+                            display: "flex",
+                            gap: 15,
+                          }}
                         >
-                          <span
-                            style={{
-                              textTransform: "uppercase",
-                              fontSize: 22,
-                            }}
+                          <img
+                            src={row?.image}
+                            alt={row.name}
+                            height="50"
+                            style={{ marginBottom: 10 }}
+                          />
+
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            {row.symbol}
-                          </span>
-                          <span style={{ color: "darkgrey" }}>{row.name}</span>
-                        </div>
-                      </TableCell>
+                            <span
+                              style={{
+                                textTransform: "uppercase",
+                                fontSize: 22,
+                              }}
+                            >
+                              {row.symbol}
+                            </span>
+                            <span style={{ color: "darkgrey" }}>
+                              {row.name}
+                            </span>
+                          </div>
+                        </TableCell>
 
-                      {/*Coin Price cell */}
-                      <TableCell align="right">
-                        {symbol} {""}{" "}
-                        {numberWithCommas(row.current_price.toFixed(2))}
-                      </TableCell>
+                        {/*Coin Price cell */}
+                        <TableCell align="right">
+                          {symbol} {""}{" "}
+                          {numberWithCommas(row.current_price.toFixed(2))}
+                        </TableCell>
 
-                      {/* 24h change percentage */}
-                      <TableCell
-                        align="right"
-                        style={{
-                          color: profit ? "green" : "red",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {profit ? "▲" : "▼"}{" "}
-                        {row.price_change_percentage_24h.toFixed(2)}%
-                      </TableCell>
+                        {/* 24h change percentage */}
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: profit ? "green" : "red",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {profit ? "▲" : "▼"}{" "}
+                          {row.price_change_percentage_24h.toFixed(2)}%
+                        </TableCell>
 
-                      {/* Market Cap */}
-                      <TableCell align="right">
-                        {symbol} {""}
-                        {numberWithCommas(
-                          row.market_cap.toString().slice(0, -6)
-                        )}
-                        M
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                        {/* Market Cap */}
+                        <TableCell align="right">
+                          {symbol} {""}
+                          {numberWithCommas(
+                            row.market_cap.toString().slice(0, -6)
+                          )}
+                          M
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           )}
         </TableContainer>
       </Container>
+      <Pagination
+      count={(handleSearch()?.length / 10).toFixed(0)}
+        style={{
+          padding: 20,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}   
+        onChange={(e, value) => {
+            setPage(value);
+            window.scroll(0, 450);
+        }}
+      />
     </ThemeProvider>
   );
 };

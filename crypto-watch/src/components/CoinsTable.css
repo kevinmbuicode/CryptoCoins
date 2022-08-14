@@ -1,8 +1,8 @@
-.TableBody-TableRow{
-    background-color: "#16171a";
-    cursor: pointer;
-    font-family: "Inter";
+.TableBody-TableRow {
+  background-color: "#16171a";
+  cursor: pointer;
+  font-family: "Inter";
 }
 .TableBody-TableRow:hover {
-    background-color: #01263f;
+  background-color: #01263f;
 }
