@@ -7,7 +7,7 @@ import {CryptoState} from '../CryptoContext';
 
 const Header = () => {
   const navigate = useNavigate();
-  const {currency, symbol, setCurrency} = CryptoState();
+  const {currency, setCurrency} = CryptoState();
 
   const darkTheme = createTheme({
     palette: {

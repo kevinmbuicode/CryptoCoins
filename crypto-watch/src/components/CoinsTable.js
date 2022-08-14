@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CoinList } from "../config/api";
 import { CryptoState } from "../CryptoContext";
+import "./CoinsTable.css";
 
 const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
@@ -26,7 +27,13 @@ const CoinsTable = () => {
   const navigate = useNavigate();
 
   //State from Context API
-  const { currency } = CryptoState();
+  const { currency, symbol } = CryptoState();
+
+  //Function to display umbers with commas (REGex): Source: Google/StackOverflow
+  // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   //Fetch coins from API and set coins state to data fetched
   //Fetch coins from API in config folder
@@ -103,6 +110,7 @@ const CoinsTable = () => {
                       key={row.name}
                       onClick={() => navigate(`/coins/${row.id}`)}
                     >
+                      {/* Our Image, Symbol, and name */}
                       <TableCell
                         component="th"
                         scope="row"
@@ -117,6 +125,47 @@ const CoinsTable = () => {
                           height="50"
                           style={{ marginBottom: 10 }}
                         />
+
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <span
+                            style={{
+                              textTransform: "uppercase",
+                              fontSize: 22,
+                            }}
+                          >
+                            {row.symbol}
+                          </span>
+                          <span style={{ color: "darkgrey" }}>{row.name}</span>
+                        </div>
+                      </TableCell>
+
+                      {/*Coin Price cell */}
+                      <TableCell align="right">
+                        {symbol} {""}{" "}
+                        {numberWithCommas(row.current_price.toFixed(2))}
+                      </TableCell>
+
+                      {/* 24h change percentage */}
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: profit ? "green" : "red",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {profit ? "▲" : "▼"}{" "}
+                        {row.price_change_percentage_24h.toFixed(2)}%
+                      </TableCell>
+
+                      {/* Market Cap */}
+                      <TableCell align="right">
+                        {symbol} {""}
+                        {numberWithCommas(
+                          row.market_cap.toString().slice(0, -6)
+                        )}
+                        M
                       </TableCell>
                     </TableRow>
                   );
