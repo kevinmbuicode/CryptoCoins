@@ -49,8 +49,12 @@ const CoinsTable = () => {
 
   //Filter coins by search term
   const handleSearch = () => {
-    return coins.filter((coin) => coin.name.toLowerCase().includes(search) || coin.symbol.toLowerCase().includes(search));
-  }
+    return coins.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(search) ||
+        coin.symbol.toLowerCase().includes(search)
+    );
+  };
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -92,7 +96,7 @@ const CoinsTable = () => {
               <TableBody>
                 {handleSearch().map((row) => {
                   const profit = row.price_change_percentage_24h > 0;
-                  
+
                   return (
                     <TableRow
                       className="TableBody-TableRow"
