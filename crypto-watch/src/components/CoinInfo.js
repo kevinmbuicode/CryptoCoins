@@ -1,40 +1,52 @@
-import { ThemeProvider } from '@emotion/react';
-import { createTheme } from '@mui/system';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { HistoricalChart } from '../config/api';
-import { CryptoState } from '../CryptoContext';
-import './CoinInfo.css';
+import { ThemeProvider } from "@emotion/react";
+import { CircularProgress } from "@mui/material";
+import { createTheme } from "@mui/system";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
+import { HistoricalChart } from "../config/api";
+import { CryptoState } from "../CryptoContext";
+import "./CoinInfo.css";
+import { useParams } from 'react-router-dom';
 
+const CoinInfo = ({ coin } /** Receiving props from CoinPage */) => {
+  const [historicData, setHistoricData] = useState([]);
+  const [days, setDays] = useState(1);
+  const { id } = useParams();
 
-const CoinInfo = ({coin}/** Receiving props from CoinPage */) => {
-    const [ historicData, setHistoricData ] = useState();
-    const [ days, setDays ] = useState(1);
+  const { currency } = CryptoState();
 
-    const { currency } = CryptoState();
+  
+  useEffect(() => {
+    const fetchHistoricData = async () => {
+      const { data } = await axios.get(HistoricalChart(id, days, currency));
+      console.log(HistoricalChart(id, days, currency))
+      setHistoricData(data);
+      console.log("historic Chart data",data);
+    };
+    fetchHistoricData();
+  },[days, currency, id]);
 
-    useEffect(()=> {
-        const fetchHistoricData = async () => {
-            const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
-            console.log(data);
-            setHistoricData(data.prices);
-        }
-        fetchHistoricData();
-    }, [coin.id, days, currency]);
-
-    const darkTheme = createTheme({
-        palette: {
-            mode: "dark",
-        },
-    });
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
 
   return (
     <ThemeProvider theme={darkTheme}>
-        <div className='CoinInfo-Container'>
-            Chart
-        </div>
+      <div className="CoinInfo-Container">
+        {/* Conditionally render Circular Progress if historic data is not loaded */}
+        {!historicData ? (
+          <CircularProgress color="inherit" />
+        ) : (
+          <>
+            Something went right
+          </>
+        )}
+      </div>
     </ThemeProvider>
-  )
-}
+  );
+};
 
 export default CoinInfo;
