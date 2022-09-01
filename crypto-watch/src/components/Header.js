@@ -24,6 +24,7 @@ const Header = () => {
             onClick={() => navigate("/")}
             className="Header-Typography"
             variant="h6"
+            fontWeight={900}
           >
             Crypto Watcher
           </Typography>
