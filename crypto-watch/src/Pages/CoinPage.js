@@ -1,4 +1,4 @@
-import { LinearProgress, Typography } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 import axios from "axios";
 //import HTMLReactParser from "html-react-parser";
 import React, { useState, useEffect } from "react";
@@ -35,8 +35,16 @@ const CoinPage = () => {
   }
 
   return (
-    <div className="CoinPage-Container">
-      <div className="CoinPage-Sidebar">
+    <Box flex={1} sx={{ display: "flex"}}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          borderRight: "2px solid grey",
+          width: "30%"
+        }}
+      >
         <img
           src={coin?.image?.large}
           alt={coin?.name}
@@ -95,9 +103,6 @@ const CoinPage = () => {
             &nbsp; &nbsp;
             <Typography variant="h5" style={{ fontFamily: "Inter" }}>
               {symbol}{" "}
-              {console.log(
-                coin?.market_data?.current_price?.[currency.toLowerCase()]
-              )}
               {coin?.market_data?.current_price?.[currency.toLowerCase()]}
             </Typography>
           </span>
@@ -115,9 +120,9 @@ const CoinPage = () => {
             </Typography>
           </span>
         </div>
-      </div>
+      </Box>
       <CoinInfo coin={coin} />
-    </div>
+    </Box>
   );
 };
 

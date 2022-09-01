@@ -1,11 +1,10 @@
 .CoinPage-Container{
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 .CoinPage-Sidebar {
     display: flex;
     flex-direction: column;
+    width: "15%";
     align-items: center;
     margin-top: 25;
     border-right: 2px solid grey;
