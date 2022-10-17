@@ -9,14 +9,16 @@ const Header = () => {
   const navigate = useNavigate();
   const {currency, setCurrency} = CryptoState();
 
-  const darkTheme = createTheme({
+  const darkBlueTheme = createTheme({
     palette: {
-      mode: "dark",
+      primary: {
+        main: "#002E94",
+      },
     },
   });
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkBlueTheme}>
     <AppBar color="primary" position="static">
       <Container>
         <Toolbar>
@@ -32,6 +34,8 @@ const Header = () => {
             variant="outlined"
             style={{
               width: "100px",
+              color: "white",
+              border: "1px solid white",
               height: 40,
               marginRight: 15,
             }}

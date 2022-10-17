@@ -10,27 +10,27 @@ const CryptoContext = ({ children }) => {
   //Currencies available and more people are familiar with
   useEffect(()=> {
     if (currency === "GBP"){
-        console.log("GBP");
+
         setSymbol("£");
     }
     else if(currency === "USD"){
-        console.log("USD");
+
         setSymbol("$");
     }
     else if(currency === "AUD"){
-        console.log("AUD");
+
         setSymbol("A$");
     }
     else if(currency === "CAD"){
-        console.log("CAD");
+
         setSymbol("Can$");
     }
     else if(currency === "BTC"){
-        console.log("BTC");
+
         setSymbol("₿");
     }
     else if(currency === "EUR"){
-        console.log("EUR");
+
         setSymbol("€");
     }
   }, [currency])
