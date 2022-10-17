@@ -18,12 +18,14 @@ import { useNavigate } from "react-router-dom";
 import { CoinList } from "../config/api";
 import { CryptoState } from "../CryptoContext";
 import "./CoinsTable.css";
+import socketIOClient from 'socket.io-client';
 
 const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1); //for the pagination
+  const [data, setData] = useState("");
 
   //Navigation
   const navigate = useNavigate();
@@ -49,6 +51,16 @@ const CoinsTable = () => {
     fetchCoins();
   }, [currency]);
 
+  // Socket
+  // useEffect(() => {
+  //   const socket = socketIOClient("http://127.0.0.1:3002/")
+  //   socket.on("message", (coins) => {
+  //     console.log(coins)
+  //     setCoins(coins)
+  //   })
+  // }, [])
+  // Socket ends here
+
   //dark theme to the CoinsTable
   const darkTheme = createTheme({
     palette: {
@@ -69,7 +81,7 @@ const CoinsTable = () => {
     <ThemeProvider theme={darkTheme}>
       <Container style={{ textAlign: "center" }}>
         <Typography variant="h6" style={{ margin: 18, fontFamily: "Inter" }}>
-          Cryptocurrencies Prices by Market Cap
+          Cryptocurrencies Prices by Market Cap {data}
         </Typography>
         <TextField
           label="Search for a crypto currency..."
