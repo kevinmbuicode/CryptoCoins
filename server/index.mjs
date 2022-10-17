@@ -18,6 +18,7 @@ let CoinList = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&o
 
 const fetchCoins = () => axios.get(CoinList);
 
+// Feature removed. Exceed User request per minute
 let coinChange
 server.on("connection", (socket)=> {
     if(coinChange) clearInterval(coinChange)
@@ -27,32 +28,4 @@ server.on("connection", (socket)=> {
 
 httpServer.listen(port)
 
-
-// Previous
-
-// import express from "express";
-// import http from 'http';
-// import * as socketio from 'socket.io';
-
-// const port = 3002;
-
-// const app = express();
-// const httpServer = http.createServer(app)
-
-// const server = new socketio.Server(httpServer,{
-//     cors: {
-//         origin: '*',
-//     }
-// })
-
-
-
-// let timeChange
-// server.on("connection", (socket)=> {
-//     if(timeChange) clearInterval(timeChange)
-//     setInterval(()=> socket.emit("message", new Date()), 1000)
-// })
-
-
-// httpServer.listen(port)
 
