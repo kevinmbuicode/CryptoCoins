@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Typography } from "@mui/material";
+import { Box, LinearProgress, Typography, createTheme } from "@mui/material";
 import axios from "axios";
 //import HTMLReactParser from "html-react-parser";
 import React, { useState, useEffect } from "react";
@@ -13,6 +13,18 @@ const CoinPage = () => {
   const [coin, setCoin] = useState([]);
 
   const { currency, symbol } = CryptoState();
+
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
+  });
 
   //Function to display umbers with commas (REGex): Source: Google/StackOverflow
   // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
@@ -35,14 +47,30 @@ const CoinPage = () => {
   }
 
   return (
-    <Box flex={1} sx={{ display: "flex"}}>
+    <Box
+      flex={1}
+      sx={{
+        display: "flex",
+        [theme.breakpoints.down("md")]: {
+          display: "flex",
+          flexDirection: "column",
+        },
+      }}
+    >
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           borderRight: "2px solid grey",
-          width: "30%"
+          width: "30%",
+          [theme.breakpoints.down("md")]: {
+            display: "flex",
+            flexDirection: "column",
+            borderBottom: "2px solid grey",
+            alignItems: "center",
+            width: "100%"
+          }
         }}
       >
         <img

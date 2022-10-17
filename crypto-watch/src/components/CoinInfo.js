@@ -29,7 +29,6 @@ const CoinInfo = ({ coin } /** Receiving props from CoinPage */) => {
     const fetchHistoricData = async () => {
       const { data } = await axios.get(HistoricalChart(id, days, currency));
       setHistoricData(data);
-      // console.log(data);
     };
     fetchHistoricData();
   }, [days, currency, id]);
@@ -48,9 +47,9 @@ const CoinInfo = ({ coin } /** Receiving props from CoinPage */) => {
     justifyContent: "center",
     marginTop: 25,
     padding: 40,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       width: "100%",
-      marginTop: 0,
+      
       padding: 20,
       paddingTop: 0,
     },
@@ -85,7 +84,6 @@ const CoinInfo = ({ coin } /** Receiving props from CoinPage */) => {
           <>
             <Line
               data={{
-                // Took me several days to come to this. Took 5 hours of serious searching to get this.
                 labels: Array.from(historicData.prices).map((coin) => {
                   let date = new Date(coin[0]);
                   let time =
